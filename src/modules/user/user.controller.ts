@@ -1,7 +1,6 @@
 import { Controller, Get, Param, Body, Post, Patch, Delete, ParseIntPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { UserDto } from './dto/user.dto';
 
 @Controller('users')
 export class UserController {
@@ -11,19 +10,19 @@ export class UserController {
 	async getUser(
 		@Param('id', ParseIntPipe)
 		id: number
-	): Promise<UserDto> {
+	): Promise<User> {
 		const user = await this._userService.get(id);
 		return user;
 	}
 
 	@Get()
-	async getUsers(): Promise<UserDto[]> {
+	async getUsers(): Promise<User[]> {
 		const users = await this._userService.getAll();
 		return users;
 	}
 
 	@Post()
-	async createUser(@Body() user: User): Promise<UserDto> {
+	async createUser(@Body() user: User): Promise<User> {
 		const createdUser = await this._userService.create(user);
 		return createdUser;
 	}
